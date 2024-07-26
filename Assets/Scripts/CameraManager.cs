@@ -10,7 +10,12 @@ public class CameraManager : MonoBehaviour
     public float bottomLimit = 0.0f;
 
     public GameObject subScreen;
-    // Start is called before the first frame update
+    
+    public bool isForceScrollX = false;
+    public float forceScrollSpeedX = 0.5f;
+    public bool isForceScrollY = false;
+    public float forceScrollSpeedY = 0.5f;
+
     void Start()
     {
         
@@ -25,6 +30,11 @@ public class CameraManager : MonoBehaviour
             float y = player.transform.position.y;
             float z = transform.position.z;
 
+            if (isForceScrollX)
+            {
+                x = transform.position.x + (forceScrollSpeedX * Time.deltaTime);
+            }
+
             if(x < leftLimit)
             {
                 x = leftLimit;
@@ -32,6 +42,11 @@ public class CameraManager : MonoBehaviour
             else if (x > rightLimit){
                 x = rightLimit;
             }
+
+            if(isForceScrollY){
+                y = transform.position.y + (forceScrollSpeedY * Time.deltaTime);
+            }
+
             if(y < bottomLimit){
                 y = bottomLimit;
             }

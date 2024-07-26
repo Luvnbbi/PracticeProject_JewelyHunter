@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     string nowAnime = "";
     string oldAnime = "";
     public static string gameState = "playing";
+    public int score = 0;
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
@@ -95,6 +97,11 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.gameObject.tag == "Dead"){
             GameOver();
+        }
+        else if(collision.gameObject.tag == "ScoreItem"){
+            ItemData item = collision.gameObject.GetComponent<ItemData>();
+            score = item.value;
+            Destroy(collision.gameObject);
         }
     }
     public void Goal(){
